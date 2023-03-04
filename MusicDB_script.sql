@@ -10,9 +10,15 @@ create table if not exists albums(
 );
 
 create table if not exists MusicianAlbum(
-	id SERIAL PRIMARY KEY,
 	album_id INTEGER references albums(album_id),
 	musician_id INTEGER references musicians(musician_id)
+);
+
+create table if not exists Songs(
+	song_id SERIAL PRIMARY KEY,
+	name VARCHAR(40) NOT null,
+	album_id INTEGER references albums(album_id),
+	duration TIME
 );
 
 create table if not exists Songs(
@@ -29,7 +35,6 @@ create table if not exists Collections(
 );
 
 create table if not exists SongsCollections(
-	id SERIAL PRIMARY KEY,
 	song_id INTEGER references Songs(song_id),
 	collection_id INTEGER references Collections(collection_id)
 );
@@ -40,7 +45,6 @@ create table if not exists Genres(
 );
 
 create table if not exists MusicianGenre(
-	id SERIAL PRIMARY KEY,
 	genre_id INTEGER references Genres(genre_id),
 	musician_id INTEGER references musicians(musician_id)
 );
