@@ -22,13 +22,6 @@ create table if not exists Songs(
 	duration TIME
 );
 
-create table if not exists Songs(
-	song_id SERIAL PRIMARY KEY,
-	name VARCHAR(40) NOT null,
-	album_id INTEGER references albums(album_id),
-	duration TIME
-);
-
 create table if not exists Collections(
 	collection_id SERIAL PRIMARY KEY,
 	name VARCHAR(40) NOT null,
