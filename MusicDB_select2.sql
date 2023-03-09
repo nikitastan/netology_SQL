@@ -52,6 +52,24 @@ LEFT JOIN musicians m
 	ON ma.musician_id = m.musician_id
 WHERE m."name" = 'Земфира'
 
+-- 6.название альбомов, в которых присутствуют исполнители более 1 жанра;
+SELECT c.collection_id, count(DISTINCT mg.genre_id)
+FROM collections c 
+LEFT JOIN songs_collections sc
+	ON c.collection_id = sc.collection_id 
+LEFT JOIN songs s
+	ON sc.song_id = s.song_id
+LEFT JOIN albums a 
+	ON s.album_id = a.album_id 
+LEFT JOIN musician_album ma 
+	ON a.album_id = ma.album_id 
+LEFT JOIN musicians m 
+	ON ma.musician_id = m.musician_id
+LEFT JOIN musician_genre mg 
+	ON mg.musician_id = m.musician_id 
+GROUP BY c.collection_id 
+HAVING count(DISTINCT mg.genre_id)>1
+
 -- 7. наименование треков, которые не входят в сборники
 SELECT s."name"
 FROM songs s
