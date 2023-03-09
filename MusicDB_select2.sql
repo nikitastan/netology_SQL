@@ -1,14 +1,12 @@
 -- =================«Группировки, выборки из нескольких таблиц»
 
 -- 1.количество исполнителей в каждом жанре;
-SELECT 
-	g."name",  count(DISTINCT mg.musician_id) AS "Кол-во исполнителей"
-FROM 
-	musician_genre mg 
-LEFT JOIN 
-	genres g 
-ON mg.genre_id=g.genre_id 
-GROUP BY "name"
+SELECT g."name", t2."count"
+FROM genres g 
+LEFT JOIN (SELECT mg.genre_id, count(DISTINCT mg.musician_id) AS "count"
+			FROM musician_genre mg
+			GROUP BY mg.genre_id ) t2
+ON t2.genre_id=g.genre_id 
 
 -- 2.количество треков, вошедших в альбомы 2019-2020 годов;
 SELECT count(s.name) AS "Кол-во песен"
